@@ -8,16 +8,20 @@
   <style>
     html, body {
       margin: 0;
-      height: 100%;
+      min-height: 100%;
       background: #0d0d0d;
       color: #ffffff;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    .main {
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding: 24px;
     }
-    .wrap { padding: 24px; }
     h1 { font-weight: 600; font-size: 20px; margin: 0 0 8px; }
     p  { color: #b9b9b9; margin: 0 0 24px; font-size: 15px; }
     button {
@@ -30,25 +34,38 @@
       cursor: pointer;
     }
     button:hover { background: #e3ff00; color: #0d0d0d; }
-    .opts a {
-      display: block;
-      color: #e3ff00;
-      margin: 8px 0;
-      text-decoration: none;
+    .opts a { display: block; color: #e3ff00; margin: 8px 0; text-decoration: none; }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #8a8a8a;
+      border-top: 1px solid #222;
     }
+    footer a { color: #b9b9b9; text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: #e3ff00; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1 id="title">Opening checkout…</h1>
-    <p id="sub">If it doesn't appear automatically, tap below.</p>
-    <button id="cta" onclick="openCheckout()">Continue to checkout</button>
-    <div class="opts" id="opts" style="display:none;">
-      <a href="?tier=single">Single Machine — $200</a>
-      <a href="?tier=dual">Dual Machine — $380</a>
-      <a href="?tier=team">Team (5 machines) — $900</a>
+  <div class="main">
+    <div>
+      <h1 id="title">Opening checkout…</h1>
+      <p id="sub">If it doesn't appear automatically, tap below.</p>
+      <button id="cta" onclick="openCheckout()">Continue to checkout</button>
+      <div class="opts" id="opts" style="display:none;">
+        <a href="?tier=single">Single Machine — $200</a>
+        <a href="?tier=dual">Dual Machine — $380</a>
+        <a href="?tier=team">Team (5 machines) — $900</a>
+      </div>
     </div>
   </div>
+
+  <footer>
+    Alignment Lab &nbsp;·&nbsp;
+    <a href="https://alignmentlab.app/#TOS" target="_blank">Terms of Service</a>
+    <a href="https://alignmentlab.app/#privacypolicy" target="_blank">Privacy Policy</a>
+    <a href="https://alignmentlab.app/#refundpolicy" target="_blank">Refund Policy</a>
+  </footer>
 
   <script>
     Paddle.Initialize({ token: "live_cef8cf05b7b6517dd6290fc6525" });
