@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alignment Lab — Kart Front-End Geometry Tool</title>
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <style>
+    html,body{margin:0;min-height:100%;background:#0d0d0d;color:#fff;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+    body{display:flex;flex-direction:column;min-height:100vh;}
+    .main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px;}
+    .card{max-width:760px;width:100%;text-align:center;}
+    h1{font-size:30px;margin:0 0 10px;letter-spacing:.5px;}
+    .tag{color:#ffffff;font-size:18px;margin:0 0 12px;line-height:1.5;}
+    .tag2{color:#b9b9b9;font-size:15px;margin:0 0 36px;line-height:1.6;}
+    .tiers{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+    .tier{border:1px solid #2a2a2a;border-radius:14px;padding:24px 20px;width:200px;background:#141414;}
+    .tier h2{font-size:14px;color:#e3ff00;margin:0 0 6px;text-transform:uppercase;letter-spacing:.5px;}
+    .tier .price{font-size:24px;font-weight:700;margin:0 0 4px;}
+    .tier .desc{font-size:13px;color:#9a9a9a;margin:0 0 18px;min-height:34px;}
+    .tier button{background:transparent;color:#e3ff00;border:1px solid #e3ff00;border-radius:999px;
+      padding:10px 22px;font-size:15px;cursor:pointer;width:100%;}
+    .tier button:hover{background:#e3ff00;color:#0d0d0d;}
+    footer{text-align:center;padding:22px;font-size:13px;color:#8a8a8a;border-top:1px solid #222;}
+    footer a{color:#b9b9b9;text-decoration:none;margin:0 10px;}
+    footer a:hover{color:#e3ff00;}
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="card">
+      <h1>Alignment Lab</h1>
+      <p class="tag">The fastest way to set up your kart's front end</p>
+      <p class="tag2">Develop setups before the track, visualise your kart's front-end geometry, and find the optimal setup in seconds</p>
+      <div class="tiers">
+        <div class="tier">
+          <h2>Single Machine</h2>
+          <div class="price">$200</div>
+          <div class="desc">One computer. For an individual.</div>
+          <button onclick="buy('single')">Buy Now</button>
+        </div>
+        <div class="tier">
+          <h2>Dual Machine</h2>
+          <div class="price">$380</div>
+          <div class="desc">Two computers. For a pair of drivers.</div>
+          <button onclick="buy('dual')">Buy Now</button>
+        </div>
+        <div class="tier">
+          <h2>Team</h2>
+          <div class="price">$900</div>
+          <div class="desc">Up to five computers. For teams.</div>
+          <button onclick="buy('team')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Alignment Lab &nbsp;·&nbsp;
+    <a href="https://alignmentlab.app/#TOS" target="_blank">Terms of Service</a>
+    <a href="https://alignmentlab.app/#privacypolicy" target="_blank">Privacy Policy</a>
+    <a href="https://alignmentlab.app/#refundpolicy" target="_blank">Refund Policy</a>
+  </footer>
+
+  <script>
+    Paddle.Initialize({ token: "live_cef8cf05b7b6517dd6290fc6525" });
+    var prices = {
+      single: "pri_01kv7tn15r3ef7q3azmfzvwppv",
+      dual:   "pri_01kv7tqtt0tqk3r5pdcrqvtb2n",
+      team:   "pri_01kv7tw7vyfngdfgbqesbgngm5"
+    };
+    function buy(tier){
+      if(prices[tier]){ Paddle.Checkout.open({ items:[{ priceId: prices[tier], quantity:1 }] }); }
+    }
+    // auto-open if a tier is passed in the URL (keeps your Carrd ?tier= links working)
+    var t = new URLSearchParams(location.search).get("tier");
+    if(prices[t]){ buy(t); }
+  </script>
+</body>
+</html>
