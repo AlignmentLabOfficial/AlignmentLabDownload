@@ -78,7 +78,8 @@
 
     var params = new URLSearchParams(location.search);
     var tier = params.get("tier");
-    var urlGclid = params.get("gclid");
+    var cookieMatch = document.cookie.match(/(?:^|;\s*)al_cid=([^;]*)/);
+    var urlGclid = params.get("gclid") || params.get("cid") || (cookieMatch ? decodeURIComponent(cookieMatch[1]) : null);
 
     if (urlGclid) {
       localStorage.setItem("gclid", urlGclid);
