@@ -76,11 +76,24 @@
       team:   "pri_01kv7tw7vyfngdfgbqesbgngm5"
     };
 
-    var tier = new URLSearchParams(location.search).get("tier");
+    var params = new URLSearchParams(location.search);
+    var tier = params.get("tier");
+    var urlGclid = params.get("gclid");
+
+    if (urlGclid) {
+      localStorage.setItem("gclid", urlGclid);
+    }
+    var gclid = urlGclid || localStorage.getItem("gclid");
 
     function openCheckout() {
       if (prices[tier]) {
-        Paddle.Checkout.open({ items: [{ priceId: prices[tier], quantity: 1 }] });
+        var checkoutOptions = {
+          items: [{ priceId: prices[tier], quantity: 1 }]
+        };
+        if (gclid) {
+          checkoutOptions.customData = { gclid: gclid };
+        }
+        Paddle.Checkout.open(checkoutOptions);
       }
     }
 
